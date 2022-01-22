@@ -51,21 +51,17 @@ public:
     }
 
     bool operator<=(const Point &rhs) const {
-        for (int i = 0; i < this->size(); i++) {
-            if ((*this)[i] > rhs[i]) {
-                return false;
-            }
-        }
-        return true;
+        int i = 0;
+        while (i < this->size() && (*this)[i] <= rhs[i]) i++;
+
+        return i == this->size();
     }
 
     bool operator>=(const Point &rhs) const {
-        for (int i = 0; i < this->size(); i++) {
-            if ((*this)[i] < rhs[i]) {
-                return false;
-            }
-        }
-        return true;
+        int i = 0;
+        while (i < this->size() && (*this)[i] >= rhs[i]) i++;
+
+        return i == this->size();
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Point &point) {
