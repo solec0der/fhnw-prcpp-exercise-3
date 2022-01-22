@@ -1,3 +1,7 @@
+//
+// Author: Yannick Huggler
+//
+
 #include <cstdint>
 #include <array>
 #include <cmath>
@@ -10,7 +14,7 @@ class Point : public std::array<T, d> {
 public:
     typedef T ElementType;
 
-    static_assert(d != 0, "dimensions can't be zero");
+    static_assert(d > 0, "dimensions can't be zero");
     static constexpr dim_t Dimension = d;
 
     Point(T dimension = 0) {
@@ -25,7 +29,7 @@ public:
         std::initializer_list<T> newDimensions;
         Point<T, d> point(newDimensions);
 
-        for (int i = 0; i < (*this).size(); i++) {
+        for (int i = 0; i < this->size(); i++) {
             if (std::numeric_limits<T>::is_integer) {
                 point[i] = (*this)[i] + 1;
             } else {
@@ -38,12 +42,10 @@ public:
     bool operator==(const Point &rhs) const {
         if (this->Dimension != rhs.Dimension) return false;
 
-        for (int i = 0; i < this->size(); i++) {
-            if ((*this)[i] != rhs[i]) {
-                return false;
-            }
-        }
-        return true;
+        int i = 0;
+        while (i < this->size() && (*this)[i] == rhs[i]) i++;
+
+        return i == this->size();
     }
 
     bool operator<(const Point &rhs) const {
@@ -67,7 +69,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Point &point) {
         os << "(";
         std::string separator;
-        for (const auto &dim: point) {
+        for (const auto dim: point) {
             os << separator << dim;
             separator = ", ";
         }

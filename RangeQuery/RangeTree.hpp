@@ -9,6 +9,7 @@
 // RangeTree for range queries.
 // Duplicates are correctly handled.
 // Author: C. Stamm
+// Co-Author: Yannick Huggler
 // 
 
 ///////////////////////////////////////////////////////////////////////////////
